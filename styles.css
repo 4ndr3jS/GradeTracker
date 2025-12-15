@@ -18,7 +18,7 @@ body{
 }
 
 .mainNav .brand {
-    color: #fff;
+    color: #000;
     font-size: 1.5rem;
     font-weight: 700;
     margin-right: 100px;
@@ -28,7 +28,7 @@ body{
     display: flex;
     align-items: center;
     padding: 10px 20px;
-    background-color: #1e293b;
+    border-bottom: 1px solid #d1d1d1;
 }
 
 .mainNav .links {
@@ -38,7 +38,7 @@ body{
 }
 
 .mainNav .links li {
-    color:#fff;
+    color:#000;
     font-weight: 500;
     cursor: pointer;
     transition: color 0.2s, transform 0.2s;
@@ -63,15 +63,9 @@ body{
     }
 }
 
-.name{
-    text-align: center;
-    font-size: 30px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-}
-
 .title{
     margin-left: 20px;
+    margin-top: 40px;
 }
 
 .subtitle{
@@ -79,6 +73,42 @@ body{
     color: #999;
     font-weight: 500;
     margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.gpa_container{
+    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    height: 100px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 17px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 1000px;
+    border: 1px solid #c6d7f9;
+    background-color: #eef2fa;
+    color: #888888;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.gpa_holder{
+    font-size: 25px;
+    padding-top:8px;
+    font-family: 'Arial', sans-serif;
+    color: #000;
+    margin: 0 auto;
+}
+
+.name{
+    text-align: left;
+    font-size: 28px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 549;
+    margin-bottom: 18px;
 }
 
 .desc{
@@ -150,10 +180,9 @@ input:focus{
     flex-direction: column;
 }
 .addOption{
-    border: 2px solid #b9c4bb;
+    border: 1px solid #b9c4bb;
     border-radius: 10px;
     padding: 10px;
-    margin-left: 40px;
     background-color: #71cc71;
     transition: 0.25s ease-in-out;
 }
