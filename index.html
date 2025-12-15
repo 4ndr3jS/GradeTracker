@@ -9,10 +9,24 @@
 </head>
 <body>
     <nav class="nav">Grade Tracker</nav>
+    <br><br>
     <div class="desc">Grade tracker is a simple tool that allows you to input ypur grades,<br> track your progress and see what do you need to get on a final to get to a certain gpa.
     <br><br>
     <div class="container">
-        <h1>Overall GPA:</h1>  
+        <h1>Overall GPA: <span class="gpaValue" id="gpaValue">0.00</span></h1>  
+        <div class="inputSelect">
+            <div class="field">
+                <label for="courseName">Course Name</label>
+                <input type="text" id="courseName" placeholder="eg. Quantum physics">
+            </div>
+            <div class="field">
+                <label for="courseName">Grade</label>
+                <input type="number" id="grade" placeholder="eg. 3.92">
+            </div>
+            <div>
+                <button class="addOption" id="addOption">+Add Option</button>
+            </div>
+        </div>
     </div>
     </div>
 </body>
