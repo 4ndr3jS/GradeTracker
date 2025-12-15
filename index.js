@@ -20,3 +20,7 @@ function deleteCourse(id){
     renderCourses();
     calculateGPA();
 }
+
+function renderCourses(){
+    const list = document.getElementById('coursesList')
+}

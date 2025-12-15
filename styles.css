@@ -103,3 +103,37 @@ input:focus{
     background-color: #58a758;
     transition: 0.05s ease-in;
 }
+
+.coursesList{
+    margin-top: 30px;
+}
+
+.courseItem{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.courseItem:last-child{
+    border-bottom: none;
+}
+
+.courseName{
+    font-weight: 500;
+    color: #333;
+}
+
+.courseGrade{
+    color: #666;
+}
+
+.emptyState{
+    font-size: 14px;
+    padding: 40px;
+    color: #999;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
