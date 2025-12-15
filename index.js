@@ -60,8 +60,33 @@ function calculateGPA(){
     const gpa = sum/courses.length;
     document.getElementById('gpaDisplay').textContent = gpa.toFixed(2);
 }
-document.getElementById('courseName').addEventListener('keypress', function(e){
-    if(e.key == 'Enter'){
-        addCourse();
+
+function trackStats(){
+    if(courses.length===0){
+        document.getElementById('gpaDisplay').textContent = '0.00';  
+        document.getElementById('totalCourses').textContent = '0';
+        document.getElementById('averagePoints').textContent = '0.00';
+        document.getElementById('highestGrade').textContent = '0.0';
+        return;
     }
+    let sum = 0;
+    let max = 0;
+    courses.forEach(course => {
+        sum += course.grade;
+        if(course.grade>max){
+            max=course.grade;
+        }
+    });
+
+    const gpa = sum/courses.length;
+    document.getElementById('gpaDisplay').textContent = gpa.toFixed(2);
+
+    document.getElementById('totalCourses').textContent = courses.length;
+    document.getElementById('averagePoints').textContent = courses.grade;
+    document.getElementById('highestGrade').textContent = max;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    trackStats();
 });
+
