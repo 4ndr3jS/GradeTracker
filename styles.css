@@ -1,5 +1,6 @@
 body{
     margin:0;
+    background-color: #EDEFF7;
 }
 
 .nav{
@@ -12,4 +13,24 @@ body{
     padding-top: 20px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+}
+.desc{
+    height: 200px;
+    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+.container{
+    text-align: left;
+    padding-left: 40px;
+    border-radius: 10px;
+    height:500px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 17px;
+}
+h1{
+    font-size: 30px;
 }
