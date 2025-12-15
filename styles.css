@@ -1,0 +1,15 @@
+body{
+    margin:0;
+}
+
+.nav{
+    background-color: #2750F5;
+    height:60px;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    padding-top: 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
