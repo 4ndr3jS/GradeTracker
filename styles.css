@@ -101,7 +101,7 @@ input:focus{
 
 .addOption:active{
     background-color: #58a758;
-    transition: 0.05s ease-in;
+    transition: 0.01s;
 }
 
 .coursesList{
