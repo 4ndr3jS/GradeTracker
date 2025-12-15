@@ -109,6 +109,7 @@ body{
     font-family: 'Roboto', sans-serif;
     font-weight: 549;
     margin-bottom: 18px;
+    padding-bottom: 20px;
 }
 
 .desc{
@@ -119,14 +120,16 @@ body{
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     text-align: left;
-    padding-left: 40px;
+    padding-left: 30px;
     padding-right: 40px;
     padding-top: 17px;
+    border: 1px solid #dfdfdf;
     border-radius: 10px;
     width: 90%;
     max-width: 1000px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin: 0 auto;
+    padding-bottom: 40px;
 }
 .gpa{
     font-size: 22px;
@@ -173,7 +176,11 @@ input:hover{
 input:focus{
     border-color: #00000075;
     outline: #00000075;
+    font-size: 14px;
+    padding-bottom: 1px;
 }
+
+
 
 .field{
     display: flex;
@@ -183,16 +190,16 @@ input:focus{
     border: 1px solid #b9c4bb;
     border-radius: 10px;
     padding: 10px;
-    background-color: #71cc71;
+    background-color: #3772f0;
     transition: 0.25s ease-in-out;
 }
 
 .addOption:hover{
-    background-color: #66b966;
+    background-color: #2d6aee;
 }
 
 .addOption:active{
-    background-color: #58a758;
+    background-color: #2462ea;
     transition: 0.01s;
 }
 
@@ -207,6 +214,11 @@ input:focus{
     padding: 15px;
     border-bottom: 1px solid #e0e0e0;
     align-items: center;
+    padding-right: 0;
+}
+
+.courseItem:first-child{
+    padding-top: 0;
 }
 
 .courseItem:last-child{
@@ -220,6 +232,7 @@ input:focus{
 
 .courseGrade{
     color: #666;
+    padding-left: 15px;
 }
 
 .deleteButton{
@@ -230,7 +243,8 @@ input:focus{
     border-radius: 5px;
     border: none;
     color: #f3f4f8;
-    max-width: 75px;
+    width: 60px;
+    justify-self: end;
 }
 
 .emptyState{
@@ -249,4 +263,21 @@ input:focus{
         display: flex;
         justify-content: space-between;
     }
+}
+
+.container2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:100px;
+    padding-left: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.item{
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 14px;
+    font-weight: 500;
 }
