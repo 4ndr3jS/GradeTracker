@@ -19,17 +19,20 @@
     </nav>
     <h1 class="title">Courses</h1>
     <h2 class="subtitle">Manage your courses and grades</h2>
+    <div class="gpa_container">
+        <p>Current GPA</p>
+        <p class="gpa_holder" id="gpaDisplay">0.00</p>
+    </div>
     <div class="container">
-        <p class="name">GPA Calculator</p>
-        <h1 class="gpa">Overall GPA: <span class="gpaValue" id="gpaDisplay">0.00</span></h1>  
-        <div class="inputSelect">
+        <p class="name">Add a new course</p>
+            <div class="inputSelect">
             <div class="field">
                 <label for="courseName">Course Name</label>
                 <input type="text" id="courseName" placeholder="eg. Quantum physics">
             </div>
             <div class="field">
                 <label for="grade">Grade</label>
-                <input type="number" id="grade" placeholder="eg. 3.92">
+                <input type="number" id="grade" placeholder="eg. 4.0">
             </div>
             <div>
                 <button class="addOption" id="addOption" onclick="addCourse()">+ Add Course</button>
