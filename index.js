@@ -4,8 +4,8 @@ function addCourse(){
     const name = document.getElementById('courseName').value.trim();
     const grade = parseFloat(document.getElementById('grade').value);
 
-    if(!name){
-        alert("Please enter the name of the subject/course");
+    if(!name || /\d/.test(name)){
+        alert("Please enter a valid name of a subject/course");
         return;
     }
     if(isNaN(grade) || grade>10 || grade < 1){
@@ -39,10 +39,10 @@ function renderCourses(){
 <div class="courseItem">
     <div class="courseName">${course.name}</div>
     <div class="courseGrade">${course.grade}</div>
-    <button onclick="deleteCourse(${course.id})">Delete</button>
+    <button class ="deleteButton" onclick="deleteCourse(${course.id})">Delete</button>
 </div>
 `).join('');
-
+    
 }
 
 function calculateGPA(){
