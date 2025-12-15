@@ -72,9 +72,14 @@ input{
     padding-left: 10px;
 }
 
+input:hover{
+    font-size: 14px;
+    transition: 0.15s ease-in-out;
+}
+
 input:focus{
-    border: 1px solid rgba(0,0,0,0.1);
-    outline: none;
+    border-color: #00000075;
+    outline: #00000075;
 }
 
 .field{
@@ -87,4 +92,14 @@ input:focus{
     padding: 10px;
     margin-left: 40px;
     background-color: #71cc71;
+    transition: 0.25s ease-in-out;
+}
+
+.addOption:hover{
+    background-color: #66b966;
+}
+
+.addOption:active{
+    background-color: #58a758;
+    transition: 0.05s ease-in;
 }
