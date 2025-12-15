@@ -11,8 +11,8 @@
     <nav class="mainNav">
     <div class="brand">GradeTracker</div>
     <ul class="links">
-        <li>Courses</li>
         <li>Dashboard</li>
+        <li>Courses</li>
         <li>Goals</li>
         <li>Settings</li>
     </ul>
@@ -38,9 +38,17 @@
                 <button class="addOption" id="addOption" onclick="addCourse()">+ Add Course</button>
             </div>
         </div>
+    </div>
+    <div class="container" style="margin-top: 50px; height: fit-content;">
+        <p class="name" style="padding-bottom: 0;">Your courses</p>
+        <div class="container2">
+            <div class="item">Course name</div>
+            <div class="item">Grade</div>
+            <div class="item">Actions</div>
+        </div>
         <div class="coursesList" id="coursesList">
                 <div class="emptyState">No courses added yet. Add a course to calculate your GPA!</div>
-            </div>
+        </div>
     </div>
     <script src="index.js"></script>
 </body>
