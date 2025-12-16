@@ -5,6 +5,30 @@ function saveCourses() {
     localStorage.setItem("courses", JSON.stringify(courses));
 }
 
+function saveGoal(){
+    const targetInput = document.getElementById('goaltarget');
+    if(!targetInput){
+        return;
+    }
+    const value = parseFloat(targetInput.value);
+    if(isNaN(value) || value <=0 || value >10){
+        return;
+    }
+
+    localStorage.setItem("goalGPA", value);
+}
+
+function loadGoal(){
+    const targetInput = document.getElementById('goaltarget');
+    if(!targetInput){
+        return;
+    }
+    const savedGoal = parseFloat(localStorage.getItem('goalGPA'));
+    if(!isNaN(savedGoal)){
+        targetInput.value = savedGoal;
+    }
+}
+
 function renderGradesChart(){
     const canvas = document.getElementById('gradesChart');
     const empty = document.getElementById('empty');
@@ -184,6 +208,7 @@ function updateGoal() {
     const progress = document.getElementById('progress');
     const targetGPA = parseFloat(document.getElementById('goaltarget').value);
     const message = calculateNextGrade(targetGPA);
+    const toggle = document.getElementById('goalToggle');
     const goaltargetInput = document.getElementById('goaltarget');
 
     if(!goaltargetInput){
@@ -195,9 +220,9 @@ function updateGoal() {
         return;
     }
 
-    if(progress && progress.style.display !== 'none'){
-        setProgress();
-        document.getElementById('nextGrade').textContent = message;
+    saveGoal();
+    if(toggle){
+        renderProgress(toggle.checked);
     }
 }
 
@@ -258,6 +283,7 @@ function calculateNextGrade(targetGPA){
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    loadGoal();
     renderCourses();
     calculateGPA();
     trackStats();
@@ -265,7 +291,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const toggle = document.getElementById('goalToggle');
     if(toggle){
+        const savedToggle = localStorage.getItem('goalToggle');
+        toggle.checked = savedToggle === 'true';
+        renderProgress(toggle.checked);
+
         toggle.addEventListener("change", () =>{
+            localStorage.setItem('goalToggle', toggle.checked);
             renderProgress(toggle.checked);
         });
     }
@@ -276,14 +307,25 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderProgress(show){
     const progress = document.getElementById('progress');
     const targetGPA = parseFloat(document.getElementById('goaltarget').value);
-    const message = calculateNextGrade(targetGPA);
-    if(!progress){
+    const message = calculateNextGrade(targetGPA) || '';
+    const empty2 = document.getElementById('empty2');
+    const targetInput = document.getElementById('goaltarget');
+    if(!targetInput){
         return;
     }
 
-    progress.style.display = show ? "block" : "none";
-    if(show){
-        setProgress();
-        document.getElementById('nextGrade').textContent = message;
+    if(empty2){
+        empty2.style.display = show ? 'none' : 'block';
+    }
+
+    if(progress){
+        progress.style.display = show ? "block" : "none";
+        if(show){
+            setProgress();
+            const nextGradeEl = document.getElementById('nextGrade');
+            if(nextGradeEl){
+                nextGradeEl.textContent = message;
+            }
+        }
     }
 }
