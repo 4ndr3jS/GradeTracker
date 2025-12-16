@@ -535,3 +535,14 @@ body.dark .addOption{
 body.dark .mainNav .links a {
     color: #e5e5e5;
 }
+
+@media (max-width: 1024px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .dash-item,
+    .dash-item2 {
+        max-width: 100%;
+    }
+}
