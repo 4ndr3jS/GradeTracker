@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="mainNav">
+    <div class="brand">GradeTracker</div>
+    <ul class="links">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="courses.html">Courses</a>
+        <a href="goals.html">Goals</a>
+        <a href="settings.html">Settings</a>
+    </ul>
+</nav>
+
+<div class="pageHeader">
+    <h1 class="title">Goals</h1>
+    <h2 class="subtitle">Set and track your GPA targets</h2>
+</div>
+<div class="container" style="max-width:700px;">
+    <h1 class="name" style="margin-bottom: 0;">GPA Goal</h1>
+    <label>Set your target GPA to track progress</label>
+
+    <div class="container3">
+        <label class="question">Enable Goal Tracking</label>
+
+        <label class="switch">
+            <input type="checkbox" id="goalToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <label class="labeltarget">Target GPA (0.0 – 10.0)</label>
+
+    <div class="container3" style="margin-top:10px;">
+        <input type="number" id="goaltarget" class="inputtarget" step="0.1">
+        <button class="saveButton" onclick="updateGoal()">Save</button>
+    </div>
+</div>
+<div id="progress" class="hidden" style="margin-top:35px;">
+    <div class="container" style="max-width:700px;">
+        <h1 class="name" style="margin-bottom: 0;">Progress</h1>
+
+        <div class="container3">
+            <label class="targets">Current GPA: 0.00</label>
+            <label class="targets target2">Target: 0.00</label>
+        </div>
+
+        <div class="progressContainer">
+            <div class="progressBar" id="progressBar"></div>
+        </div>
+
+        <label class="question" style="display:flex; justify-content:center; margin-top:20px;">
+            0.00% of the way there
+        </label>
+    </div>
+
+    <div class="container" style="max-width:700px; margin-top:35px; padding-bottom: 10px;">
+        <h1 class="name" style="margin-bottom: 0;">What You Need</h1>
+        <label>Calculate what grade you need on your next course in order to reach the desired goal</label>
+
+        <h2 class="subtitle" id="nextGrade" style="margin-top:30px; color:#000">
+            Not achievable with one more course
+        </h2>
+    </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
