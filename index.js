@@ -7,7 +7,8 @@ function saveCourses() {
 
 function renderGradesChart(){
     const canvas = document.getElementById('gradesChart');
-    if(!canvas){
+    const empty = document.getElementById('empty');
+    if(!canvas || !empty){
         return;
     }
     const labels = courses.map(c => c.name);
@@ -17,55 +18,63 @@ function renderGradesChart(){
         gradesChart.destroy();
     }
 
-    gradesChart = new Chart(canvas, {
-        type: 'line',
-        data: {
-            labels,
-            datasets: [{
-                data,
-                borderColor: '#3b82f6',
-                backgroundColor: '#3b82f6',
-                tension: 0.4,
-                pointRadius: 4,
-                pointHoverRadius: 6,
-                fill: false,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: false
-                }
+    if(courses.length === 0){
+        empty.style.display = 'block';
+    }
+    else{
+        empty.style.display = 'none';
+    }
+
+    if(courses.length > 0){
+        gradesChart = new Chart(canvas, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    data,
+                    borderColor: '#3b82f6',
+                    backgroundColor: '#3b82f6',
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: false,
+                    borderWidth: 2
+                }]
             },
-            scales: {
-                x: {
-                    grid: {
-                        color: '#e5e7eb',
-                        borderDash: [4, 4]
-                    },
-                    ticks: {
-                        color: '#6b7280'
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 },
-                y: {
-                    min: 0,
-                    max: 11,
-                    grid: {
-                        color: '#e5e7eb',
-                        borderDash: [4, 4]
+                scales: {
+                    x: {
+                        grid: {
+                            color: '#e5e7eb',
+                            borderDash: [4, 4]
+                        },
+                        ticks: {
+                            color: '#6b7280'
+                        }
                     },
-                    ticks: {
-                        stepSize: 1,
-                        color: '#6b7280',
-                        maxRotation: 0,
-                        autoSkip: true
+                    y: {
+                        min: 0,
+                        max: 11,
+                        grid: {
+                            color: '#e5e7eb',
+                            borderDash: [4, 4]
+                        },
+                        ticks: {
+                            stepSize: 1,
+                            color: '#6b7280',
+                            maxRotation: 0,
+                            autoSkip: true
+                        }
                     }
                 }
             }
-        }
-    });
-    console.log("ran the funciton")
+        });
+    }
 }
 
 function addCourse() {
@@ -170,9 +179,111 @@ function trackStats() {
     highestGrade.textContent = max.toFixed(1);
 }
 
+
+function updateGoal() {
+    const progress = document.getElementById('progress');
+    const targetGPA = parseFloat(document.getElementById('goaltarget').value);
+    const message = calculateNextGrade(targetGPA);
+    const goaltargetInput = document.getElementById('goaltarget');
+
+    if(!goaltargetInput){
+        return;
+    }
+    const value = parseFloat(goaltargetInput.value);
+    if(isNaN(value) || value <= 0 || value > 10){
+        alert("Please enter a valid target GPA");
+        return;
+    }
+
+    if(progress && progress.style.display !== 'none'){
+        setProgress();
+        document.getElementById('nextGrade').textContent = message;
+    }
+}
+
+
+function setProgress(){
+    const bar = document.getElementById("progressBar");
+    const currentLabel = document.querySelector(".targets");
+    const targetLabel = document.querySelector(".targets.target2");
+    const percentLabel = document.querySelector(".progressContainer + label");
+    const goaltarget = parseFloat(document.getElementById('goaltarget').value);
+    let avg = 0;
+
+    if(isNaN(goaltarget) || goaltarget<=0){
+        return;
+    }
+
+    if(courses.length > 0){
+        const total =courses.reduce((sum, c) => sum + c.grade, 0);
+        avg = total / courses.length;
+    }
+
+    if(currentLabel){
+        currentLabel.textContent = `Current GPA: ${avg.toFixed(2)}`;
+    }
+    if(targetLabel){
+        targetLabel.textContent = `Target: ${goaltarget.toFixed(2)}`;
+    }
+
+    let value = (avg/goaltarget)*100;
+    if(value > 100) value = 100;
+
+    bar.style.width = value + "%";
+    if(percentLabel){
+        percentLabel.textContent = `${value.toFixed(2)}% of the way there`;
+    }
+}
+
+function calculateNextGrade(targetGPA){
+    if(courses.length === 0){
+        return;
+    }
+
+    const currentTotal = courses.reduce((sum, c) => sum + c.grade, 0);
+    const numCourses = courses.length;
+    const currentGPA = currentTotal/numCourses;
+
+    const reqNextGrade=(targetGPA*(numCourses+1))-(currentGPA*numCourses);
+
+    if(reqNextGrade>10){
+        return "Not achievable with one more course";
+    }
+    else if(reqNextGrade<=currentGPA){
+        return "Target already achieved";
+    }
+    else{
+        console.log(`You need a ${reqNextGrade.toFixed(2)} on your next course`);
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     renderCourses();
     calculateGPA();
     trackStats();
     renderGradesChart();
+
+    const toggle = document.getElementById('goalToggle');
+    if(toggle){
+        toggle.addEventListener("change", () =>{
+            renderProgress(toggle.checked);
+        });
+    }
 });
+
+
+
+function renderProgress(show){
+    const progress = document.getElementById('progress');
+    const targetGPA = parseFloat(document.getElementById('goaltarget').value);
+    const message = calculateNextGrade(targetGPA);
+    if(!progress){
+        return;
+    }
+
+    progress.style.display = show ? "block" : "none";
+    if(show){
+        setProgress();
+        document.getElementById('nextGrade').textContent = message;
+    }
+}
