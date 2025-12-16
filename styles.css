@@ -12,7 +12,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 body{
     margin:0;
-    background-color: #EDEFF7;
     font-family: 'Roboto', sans-serif;
     background-color: #f0f2f5;
 }
@@ -42,6 +41,19 @@ body{
     font-weight: 500;
     cursor: pointer;
     transition: color 0.2s, transform 0.2s;
+    text-decoration: none;
+}
+.mainNav .links a {
+    color:#000;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    text-decoration: none;
+}
+
+.mainNav .links a:hover{
+    color: #60a5f1;
+    transform: translateY(-2px);
 }
 
 .mainNav .links li:hover{
@@ -66,6 +78,7 @@ body{
 .title{
     margin-left: 20px;
     margin-top: 40px;
+    padding-left: 23%;
 }
 
 .title2{
@@ -79,6 +92,7 @@ body{
     margin-left: 20px;
     margin-top: 10px;
     margin-bottom: 30px;
+    padding-left: 23%;
 }
 
 .gpa_container{
@@ -134,6 +148,7 @@ body{
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin: 0 auto;
     padding-bottom: 40px;
+    background-color: #fcfcfc;
 }
 .gpa{
     font-size: 22px;
@@ -169,6 +184,7 @@ input{
     border-color: #00000050;
     border-radius: 8px;
     padding-left: 10px;
+    background-color: #f0f2f5;
 }
 
 input:hover{
@@ -343,4 +359,128 @@ input:focus{
     text-align: center;
     padding-top: 90px;
     padding-bottom: 90px;
+}
+
+.question{
+    display: block;
+    color: #000;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.container3{
+    margin-top: 35px;
+    display: flex;
+    flex-direction: row;
+}
+
+.click{
+    margin-left: auto;
+}
+
+.labeltarget{
+    margin-top: 30px;
+    color: #000;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.inputtarget{
+    box-shadow: none;
+    border: 1px solid #dadada;
+    width:80%;
+    font-family: 'roboto';
+    font-size: 15px;
+}
+
+.saveButton{
+    margin-left: auto;
+    height: 35px;
+    font-size: 15px;
+    background-color: #2462ea;
+    font-family: 'roboto', sans-serif;
+    border-radius: 5px;
+    border: none;
+    color: #f3f4f8;
+    width: 80px;   
+    transition: 0.15s ease-in-out;
+}
+
+.saveButton:active{
+    background-color: #144dca;
+}
+
+.hidden{
+    display:none;
+}
+
+.switch{
+    position: relative;
+    display: inline-block;
+    width:50px;
+    height:26px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider{
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #e6e8eb;
+    border-radius: 20px;
+    box-shadow: 0 2px 7px rgba(0,0,0,0.1);
+}
+
+.slider::before{
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input:checked + .slider{
+    background: #2a65e6;
+    box-shadow: 0 2px 10px rgba(42, 102, 230, 0.678);
+}
+
+input:checked + .slider::before {
+    transform: translateX(24px);
+}
+
+.toggleRow{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.targets{
+    font-size:15px;
+}
+
+.target2{
+    margin-left: auto;
+}
+
+.progressContainer{
+    width: 100%;
+    height: 17px;
+    background-color: #e6e8eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progressBar{
+    height: 100%;
+    width: 0%;
+    background-color: #346ee9;
+    border-radius: 20px;
+    transition: width 0.3s ease;
 }
