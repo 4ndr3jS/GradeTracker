@@ -5,327 +5,218 @@ function saveCourses() {
     localStorage.setItem("courses", JSON.stringify(courses));
 }
 
-function saveGoal(){
-    const targetInput = document.getElementById('goaltarget');
-    if(!targetInput){
-        return;
-    }
-    const value = parseFloat(targetInput.value);
-    if(isNaN(value) || value <=0 || value >10){
-        return;
-    }
-
+function saveGoal(value) {
     localStorage.setItem("goalGPA", value);
 }
 
-function loadGoal(){
-    const targetInput = document.getElementById('goaltarget');
-    if(!targetInput){
-        return;
-    }
-    const savedGoal = parseFloat(localStorage.getItem('goalGPA'));
-    if(!isNaN(savedGoal)){
-        targetInput.value = savedGoal;
-    }
-}
-
-function renderGradesChart(){
-    const canvas = document.getElementById('gradesChart');
-    const empty = document.getElementById('empty');
-    if(!canvas || !empty){
-        return;
-    }
-    const labels = courses.map(c => c.name);
-    const data = courses.map(c => c.grade);
-
-    if(gradesChart){
-        gradesChart.destroy();
-    }
-
-    if(courses.length === 0){
-        empty.style.display = 'block';
-    }
-    else{
-        empty.style.display = 'none';
-    }
-
-    if(courses.length > 0){
-        gradesChart = new Chart(canvas, {
-            type: 'line',
-            data: {
-                labels,
-                datasets: [{
-                    data,
-                    borderColor: '#3b82f6',
-                    backgroundColor: '#3b82f6',
-                    tension: 0.4,
-                    pointRadius: 4,
-                    pointHoverRadius: 6,
-                    fill: false,
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    x: {
-                        grid: {
-                            color: '#e5e7eb',
-                            borderDash: [4, 4]
-                        },
-                        ticks: {
-                            color: '#6b7280'
-                        }
-                    },
-                    y: {
-                        min: 0,
-                        max: 11,
-                        grid: {
-                            color: '#e5e7eb',
-                            borderDash: [4, 4]
-                        },
-                        ticks: {
-                            stepSize: 1,
-                            color: '#6b7280',
-                            maxRotation: 0,
-                            autoSkip: true
-                        }
-                    }
-                }
-            }
-        });
+function loadGoal() {
+    const input = document.getElementById("goaltarget");
+    const saved = parseFloat(localStorage.getItem("goalGPA"));
+    if (input && !isNaN(saved)) {
+        input.value = saved;
     }
 }
 
 function addCourse() {
-    const name = document.getElementById('courseName').value.trim();
-    const grade = parseFloat(document.getElementById('grade').value);
+    const name = document.getElementById("courseName").value.trim();
+    const grade = parseFloat(document.getElementById("grade").value);
 
     if (!name || /\d/.test(name)) {
-        alert("Please enter a valid name of a subject/course");
+        alert("Enter a valid course name");
         return;
     }
-    if (isNaN(grade) || grade > 10 || grade < 1) {
-        alert("Please enter a valid grade of the subject/course");
+    if (isNaN(grade) || grade < 1 || grade > 10) {
+        alert("Enter a valid grade (1–10)");
         return;
     }
 
-    courses.push({
-        id: Date.now(),
-        name,
-        grade
-    });
+    courses.push({ id: Date.now(), name, grade });
 
-    document.getElementById('courseName').value = '';
-    document.getElementById('grade').value = '';
+    document.getElementById("courseName").value = "";
+    document.getElementById("grade").value = "";
 
     saveCourses();
-    renderCourses();
-    calculateGPA();
-    trackStats();
-    renderGradesChart();
+    renderAll();
 }
 
 function deleteCourse(id) {
-    courses = courses.filter(course => course.id !== id);
+    courses = courses.filter(c => c.id !== id);
     saveCourses();
+    renderAll();
+}
+
+function renderCourses() {
+    const list = document.getElementById("coursesList");
+    if (!list) return;
+
+    if (courses.length === 0) {
+        list.innerHTML = `<div class="emptyState">No courses added yet</div>`;
+        return;
+    }
+
+    list.innerHTML = courses.map(c => `
+        <div class="courseItem">
+            <div>${c.name}</div>
+            <div>${c.grade}</div>
+            <button onclick="deleteCourse(${c.id})" class="deleteButton">Delete</button>
+        </div>
+    `).join("");
+}
+
+function calculateGPA() {
+    const el = document.getElementById("gpaDisplay");
+    if (!el) return;
+
+    if (courses.length === 0) {
+        el.textContent = "0.00";
+        return;
+    }
+
+    const avg = courses.reduce((s, c) => s + c.grade, 0) / courses.length;
+    el.textContent = avg.toFixed(2);
+}
+
+function trackStats() {
+    const total = document.getElementById("totalCourses");
+    const avg = document.getElementById("averagePoints");
+    const high = document.getElementById("highestGrade");
+    if (!total || !avg || !high) return;
+
+    if (courses.length === 0) {
+        total.textContent = "0";
+        avg.textContent = "0.00";
+        high.textContent = "0.0";
+        return;
+    }
+
+    const sum = courses.reduce((s, c) => s + c.grade, 0);
+    total.textContent = courses.length;
+    avg.textContent = (sum / courses.length).toFixed(2);
+    high.textContent = Math.max(...courses.map(c => c.grade)).toFixed(1);
+}
+
+function renderGradesChart() {
+    const canvas = document.getElementById("gradesChart");
+    const empty = document.getElementById("empty");
+    if (!canvas || !empty) return;
+
+    if (gradesChart) gradesChart.destroy();
+
+    if (courses.length === 0) {
+        empty.style.display = "block";
+        return;
+    }
+
+    empty.style.display = "none";
+
+    gradesChart = new Chart(canvas, {
+        type: "line",
+        data: {
+            labels: courses.map(c => c.name),
+            datasets: [{
+                data: courses.map(c => c.grade),
+                borderColor: "#3b82f6",
+                tension: 0.4,
+                borderWidth: 2,
+                pointRadius: 4
+            }]
+        },
+        options: {
+            plugins: { legend: { display: false } },
+            scales: { y: { min: 0, max: 10 } }
+        }
+    });
+}
+
+function updateGoal() {
+    const input = document.getElementById("goaltarget");
+    if (!input) return;
+
+    const value = parseFloat(input.value);
+    if (isNaN(value) || value <= 0 || value > 10) {
+        alert("Enter a valid target GPA");
+        return;
+    }
+
+    saveGoal(value);
+    renderProgress();
+}
+
+function calculateNextGrade(target) {
+    if (courses.length === 0) return "Add courses first";
+
+    const sum = courses.reduce((s, c) => s + c.grade, 0);
+    const n = courses.length;
+    const needed = (target * (n + 1)) - sum;
+
+    if (needed > 10) return "Not achievable with one more course";
+    if (needed <= sum / n) return "Target already achieved";
+    return `You need a ${needed.toFixed(2)} on your next course`;
+}
+
+function setProgressBar() {
+    const bar = document.getElementById("progressBar");
+    if (!bar) return;
+
+    const target = parseFloat(localStorage.getItem("goalGPA"));
+    if (isNaN(target)) return;
+
+    const avg = courses.length
+        ? courses.reduce((s, c) => s + c.grade, 0) / courses.length
+        : 0;
+
+    const percent = Math.min((avg / target) * 100, 100);
+    bar.style.width = percent + "%";
+
+    const labels = document.querySelectorAll(".targets");
+    if (labels[0]) labels[0].textContent = `Current GPA: ${avg.toFixed(2)}`;
+    if (labels[1]) labels[1].textContent = `Target: ${target.toFixed(2)}`;
+
+    const text = document.querySelector(".progressContainer + label");
+    if (text) text.textContent = `${percent.toFixed(2)}% of the way there`;
+}
+
+function renderProgress() {
+    const progress = document.getElementById("progress");
+    const empty = document.getElementById("empty2");
+    if (!progress) return;
+
+    const target = parseFloat(localStorage.getItem("goalGPA"));
+    const enabled = localStorage.getItem("goalToggle") === "true";
+
+    if (!enabled || isNaN(target)) {
+        progress.classList.add("hidden");
+        if (empty) empty.style.display = "block";
+        return;
+    }
+
+    if (empty) empty.style.display = "none";
+    progress.classList.remove("hidden");
+
+    setProgressBar();
+
+    const next = document.getElementById("nextGrade");
+    if (next) next.textContent = calculateNextGrade(target);
+}
+
+function renderAll() {
     renderCourses();
     calculateGPA();
     trackStats();
     renderGradesChart();
-}
-
-function renderCourses() {
-    const list = document.getElementById('coursesList');
-    if(!list){
-        return;
-    }
-    if (courses.length === 0) {
-        list.innerHTML = '<div class="emptyState">No courses added yet. Add a course to calculate your GPA!</div>';
-        return;
-    }
-
-    list.innerHTML = courses.map(course => `
-        <div class="courseItem">
-            <div class="courseName">${course.name}</div>
-            <div class="courseGrade">${course.grade}</div>
-            <button class="deleteButton" onclick="deleteCourse(${course.id})">Delete</button>
-        </div>
-    `).join('');
-}
-
-function calculateGPA() {
-    const gpaDisplay = document.getElementById('gpaDisplay');
-    if(!gpaDisplay){
-        return;
-    }
-
-    if (courses.length === 0) {
-        gpaDisplay.textContent = '0.00';
-        return;
-    }
-
-    const total = courses.reduce((sum, course) => sum + course.grade, 0);
-    const gpa = total / courses.length;
-    gpaDisplay.textContent = gpa.toFixed(2);
-}
-
-function trackStats() {
-    const totalCourses = document.getElementById('totalCourses');
-    const averagePoints = document.getElementById('averagePoints');
-    const highestGrade = document.getElementById('highestGrade');
-
-    if(!totalCourses || !averagePoints || !highestGrade){
-        return;
-    }
-
-    if (courses.length === 0) {
-        totalCourses.textContent = '0';
-        averagePoints.textContent = '0.00';
-        highestGrade.textContent = '0.0';
-        return;
-    }
-
-    let sum = 0;
-    let max = 0;
-    courses.forEach(course => {
-        sum += course.grade;
-        if (course.grade > max) max = course.grade;
-    });
-
-    const avg = sum / courses.length;
-    totalCourses.textContent = courses.length;
-    averagePoints.textContent = avg.toFixed(2);
-    highestGrade.textContent = max.toFixed(1);
-}
-
-
-function updateGoal() {
-    const progress = document.getElementById('progress');
-    const targetGPA = parseFloat(document.getElementById('goaltarget').value);
-    const message = calculateNextGrade(targetGPA);
-    const toggle = document.getElementById('goalToggle');
-    const goaltargetInput = document.getElementById('goaltarget');
-
-    if(!goaltargetInput){
-        return;
-    }
-    const value = parseFloat(goaltargetInput.value);
-    if(isNaN(value) || value <= 0 || value > 10){
-        alert("Please enter a valid target GPA");
-        return;
-    }
-
-    saveGoal();
-    if(toggle){
-        renderProgress(toggle.checked);
-    }
-}
-
-
-function setProgress(){
-    const bar = document.getElementById("progressBar");
-    const currentLabel = document.querySelector(".targets");
-    const targetLabel = document.querySelector(".targets.target2");
-    const percentLabel = document.querySelector(".progressContainer + label");
-    const goaltarget = parseFloat(document.getElementById('goaltarget').value);
-    let avg = 0;
-
-    if(isNaN(goaltarget) || goaltarget<=0){
-        return;
-    }
-
-    if(courses.length > 0){
-        const total =courses.reduce((sum, c) => sum + c.grade, 0);
-        avg = total / courses.length;
-    }
-
-    if(currentLabel){
-        currentLabel.textContent = `Current GPA: ${avg.toFixed(2)}`;
-    }
-    if(targetLabel){
-        targetLabel.textContent = `Target: ${goaltarget.toFixed(2)}`;
-    }
-
-    let value = (avg/goaltarget)*100;
-    if(value > 100) value = 100;
-
-    bar.style.width = value + "%";
-    if(percentLabel){
-        percentLabel.textContent = `${value.toFixed(2)}% of the way there`;
-    }
-}
-
-function calculateNextGrade(targetGPA){
-    if(courses.length === 0){
-        return;
-    }
-
-    const currentTotal = courses.reduce((sum, c) => sum + c.grade, 0);
-    const numCourses = courses.length;
-    const currentGPA = currentTotal/numCourses;
-
-    const reqNextGrade=(targetGPA*(numCourses+1))-(currentGPA*numCourses);
-
-    if(reqNextGrade>10){
-        return "Not achievable with one more course";
-    }
-    else if(reqNextGrade<=currentGPA){
-        return "Target already achieved";
-    }
-    else{
-        console.log(`You need a ${reqNextGrade.toFixed(2)} on your next course`);
-    }
+    renderProgress();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     loadGoal();
-    renderCourses();
-    calculateGPA();
-    trackStats();
-    renderGradesChart();
+    renderAll();
 
-    const toggle = document.getElementById('goalToggle');
-    if(toggle){
-        const savedToggle = localStorage.getItem('goalToggle');
-        toggle.checked = savedToggle === 'true';
-        renderProgress(toggle.checked);
-
-        toggle.addEventListener("change", () =>{
-            localStorage.setItem('goalToggle', toggle.checked);
-            renderProgress(toggle.checked);
+    const toggle = document.getElementById("goalToggle");
+    if (toggle) {
+        toggle.checked = localStorage.getItem("goalToggle") === "true";
+        toggle.addEventListener("change", () => {
+            localStorage.setItem("goalToggle", toggle.checked);
+            renderProgress();
         });
     }
 });
-
-
-
-function renderProgress(show){
-    const progress = document.getElementById('progress');
-    const targetGPA = parseFloat(document.getElementById('goaltarget').value);
-    const message = calculateNextGrade(targetGPA) || '';
-    const empty2 = document.getElementById('empty2');
-    const targetInput = document.getElementById('goaltarget');
-    if(!targetInput){
-        return;
-    }
-
-    if(empty2){
-        empty2.style.display = show ? 'none' : 'block';
-    }
-
-    if(progress){
-        progress.style.display = show ? "block" : "none";
-        if(show){
-            setProgress();
-            const nextGradeEl = document.getElementById('nextGrade');
-            if(nextGradeEl){
-                nextGradeEl.textContent = message;
-            }
-        }
-    }
-}
