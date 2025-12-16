@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses</title>
+    <title>Dashboard</title>
+
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <nav class="mainNav">
+
+<nav class="mainNav">
     <div class="brand">GradeTracker</div>
     <ul class="links">
         <a href="dashboard.html">Dashboard</a>
@@ -16,49 +19,75 @@
         <a href="goals.html">Goals</a>
         <li>Settings</li>
     </ul>
-    </nav>
-    <div style="width: 67.7%; margin: 0 auto;">
-        <h1 class="title">Dashboard</h1>
-        <h2 class="subtitle">Track your academic progress</h2>
+</nav>
+
+<div class="pageHeader">
+    <h1 class="title">Dashboard</h1>
+    <h2 class="subtitle">Track your academic progress</h2>
+</div>
+<div class="dashboard-container">
+    <div class="dash-item">
+        <p class="bigtxt">Current GPA</p>
+        <p class="gpa_holder" id="gpaDisplay">0.00</p>
+        <p class="smalltxt">Out of 10</p>
     </div>
-    <div class="dashboard-container">
-        <div class="dash-item">
-            <p class="bigtxt">Current GPA</p>
-            <p class="gpa_holder" id="gpaDisplay">0.00</p>
-            <p class="smalltxt">Out of 4</p>
-        </div>
-        <div class="dash-item">
-            <p class="bigtxt">Total Courses</p>
-            <p class="gpa_holder" id="totalCourses">0</p>
-            <p class="smalltxt">Courses tracked</p>
-        </div>
-        <div class="dash-item">
-            <p class="bigtxt">Average Points</p>
-            <p class="gpa_holder" id="averagePoints">0.00</p>
-            <p class="smalltxt">Per course</p>
-        </div>
-        <div class="dash-item">
-            <p class="bigtxt">Highest Garde</p>
-            <p class="gpa_holder" id="highestGrade">0.0</p>
-            <p class="smalltxt">Best performance</p>
-        </div>
+
+    <div class="dash-item">
+        <p class="bigtxt">Total Courses</p>
+        <p class="gpa_holder" id="totalCourses">0</p>
+        <p class="smalltxt">Courses tracked</p>
     </div>
-    <div class="dashboard-container">
-        <div class="dash-item2">
-            <h1 class="title2">GPA Trend</h1>
-            <div id="empty">
-                <p class="empty">Add courses to see your GPA trend</p>
+
+    <div class="dash-item">
+        <p class="bigtxt">Average Points</p>
+        <p class="gpa_holder" id="averagePoints">0.00</p>
+        <p class="smalltxt">Per course</p>
+    </div>
+
+    <div class="dash-item">
+        <p class="bigtxt">Highest Grade</p>
+        <p class="gpa_holder" id="highestGrade">0.0</p>
+        <p class="smalltxt">Best performance</p>
+    </div>
+</div>
+<div class="dashboard-container">
+    <div class="dash-item2">
+        <h1 class="title2">GPA Trend</h1>
+
+        <div id="empty">
+            <p class="empty">Add courses to see your GPA trend</p>
+        </div>
+
+        <canvas id="gradesChart"></canvas>
+    </div>
+    <div class="dash-item2">
+        <h1 class="title2">Goal Progress</h1>
+
+        <div id="empty2">
+            <p class="empty">Set a GPA goal in the Goals page to track your progress</p>
+        </div>
+
+        <div id="progress" class="hidden" style="padding:20px;">
+            <div class="container3">
+                <label class="targets">Current GPA: 0.00</label>
+                <label class="targets target2">Target: 0.00</label>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <canvas id="gradesChart"></canvas>
-        </div>
-        <div class="dash-item2">
-            <h1 class="title2">Goal Progress</h1>
-            <div id="empty2">
-                <p class="empty">Set a GPA goal in the Goals page to track your progress</p>
+
+            <div class="progressContainer">
+                <div class="progressBar" id="progressBar"></div>
             </div>
+
+            <label class="question" style="display:flex; justify-content:center; margin-top:20px;">
+                0.00% of the way there
+            </label>
+
+            <h2 class="subtitle" id="nextGrade" style="margin-top:30px; font-size:16px; color: #000; margin-right: auto; padding-left: 0;">
+                Not achievable with one more course
+            </h2>
         </div>
     </div>
-    <script src="index.js"></script>
+</div>
+
+<script src="index.js"></script>
 </body>
 </html>
