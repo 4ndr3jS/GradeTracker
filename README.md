@@ -30,7 +30,7 @@ A simple **Grade Tracker web app** built with **HTML, CSS, and vanilla JavaScrip
 1. Clone the repository:
 
    ```bash
-   git clone [https://github.com/your-username/grade-tracker.git](https://github.com/4ndr3jS/GradeTracker)
+   git clone https://github.com/4ndr3jS/GradeTracker
    ```
 2. Open the project folder
 3. Double-click `dashboard.html` **or** open it with Live Server
