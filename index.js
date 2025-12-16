@@ -1,5 +1,9 @@
-let courses = JSON.parse(localStorage.getItem("courses")) || [];
-let gradesChart = null;
+let courses = [];
+
+function loadCourses() {
+    const saved = localStorage.getItem("courses");
+    return saved ? JSON.parse(saved) : [];
+}
 
 function saveCourses() {
     localStorage.setItem("courses", JSON.stringify(courses));
@@ -16,7 +20,7 @@ function loadGoal() {
         input.value = saved;
     }
 }
-
+-
 function addCourse() {
     const name = document.getElementById("courseName").value.trim();
     const grade = parseFloat(document.getElementById("grade").value);
@@ -95,6 +99,7 @@ function trackStats() {
     high.textContent = Math.max(...courses.map(c => c.grade)).toFixed(1);
 }
 
+let gradesChart = null;
 function renderGradesChart() {
     const canvas = document.getElementById("gradesChart");
     const empty = document.getElementById("empty");
@@ -208,15 +213,36 @@ function renderAll() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    if(localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+    } else {
+        document.body.classList.remove("dark");
+    }
+
+    courses = loadCourses();
     loadGoal();
     renderAll();
 
-    const toggle = document.getElementById("goalToggle");
-    if (toggle) {
-        toggle.checked = localStorage.getItem("goalToggle") === "true";
-        toggle.addEventListener("change", () => {
-            localStorage.setItem("goalToggle", toggle.checked);
+    const goalToggle = document.getElementById("goalToggle");
+    if (goalToggle) {
+        goalToggle.checked = localStorage.getItem("goalToggle") === "true";
+        goalToggle.addEventListener("change", () => {
+            localStorage.setItem("goalToggle", goalToggle.checked);
             renderProgress();
+        });
+    }
+
+    const themeToggle = document.getElementById("modetoggle");
+    if(themeToggle){
+        themeToggle.checked = localStorage.getItem("theme") === "dark";
+        themeToggle.addEventListener("change", () =>{
+            if(themeToggle.checked){
+                document.body.classList.add("dark");
+                localStorage.setItem("theme", "dark");
+            } else {
+                document.body.classList.remove("dark");
+                localStorage.setItem("theme", "light");
+            }
         });
     }
 });
