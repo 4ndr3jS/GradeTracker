@@ -87,7 +87,7 @@ body{
 
 .subtitle{
     font-size: 18px;
-    color: #999;
+    color: #000;
     font-weight: 500;
     margin-left: 20px;
     margin-top: 10px;
@@ -514,6 +514,18 @@ body.dark input {
 body.dark .mainNav {
     background-color: #1a1a1a;
     border-bottom-color: #2a2a2a;
+}
+
+body.dark .brand {
+    color: #e5e5e5;
+}
+
+body.dark .subtitle {
+    color: #e5e5e5;
+}
+
+body.dark .gpa_holder {
+    color: #e5e5e5;
 }
 
 body.dark .mainNav .links a {
