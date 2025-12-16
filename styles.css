@@ -528,6 +528,10 @@ body.dark .gpa_holder {
     color: #e5e5e5;
 }
 
+body.dark .addOption{
+    border-color: #121212;
+}
+
 body.dark .mainNav .links a {
     color: #e5e5e5;
 }
