@@ -11,8 +11,8 @@
     <nav class="mainNav">
     <div class="brand">GradeTracker</div>
     <ul class="links">
-        <li>Dashboard</li>
-        <li>Courses</li>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="courses.html">Courses</a>
         <li>Goals</li>
         <li>Settings</li>
     </ul>
@@ -41,6 +41,18 @@
             <p class="bigtxt">Highest Garde</p>
             <p class="gpa_holder" id="highestGrade">0.0</p>
             <p class="smalltxt">Best performance</p>
+        </div>
+    </div>
+    <div class="dashboard-container">
+        <div class="dash-item2">
+            <h1 class="title2">GPA Trend</h1>
+            <p class="empty">Add courses to see your GPA trend</p>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <canvas id="gradesChart"></canvas>
+        </div>
+        <div class="dash-item2">
+            <h1 class="title2">Goal Progress</h1>
+            <p class="empty">Set a GPA goal in the Goals page to track your progress</p>
         </div>
     </div>
     <script src="index.js"></script>

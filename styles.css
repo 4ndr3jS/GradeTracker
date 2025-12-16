@@ -68,6 +68,10 @@ body{
     margin-top: 40px;
 }
 
+.title2{
+    font-size: 25px;
+}
+
 .subtitle{
     font-size: 18px;
     color: #999;
@@ -305,6 +309,19 @@ input:focus{
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.dash-item2 {
+    flex: 1;
+    max-width: 550px;        
+    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    padding: 17px 40px 40px 30px;
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 .smalltxt{
     font-size:16px;
     font-family: 'Roboto', sans-serif;
@@ -316,4 +333,14 @@ input:focus{
     font-family: 'Roboto', sans-serif;
     text-align: left;
     color: #888888;
+}
+
+.empty{
+    font-size: 17px;
+    padding: 40px;
+    color: #8b8b8b;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding-top: 90px;
+    padding-bottom: 90px;
 }
