@@ -37,7 +37,7 @@ A simple **Grade Tracker web app** built with **HTML, CSS, and vanilla JavaScrip
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 * Courses and grades are stored in `localStorage`
 * GPA updates automatically when courses change
