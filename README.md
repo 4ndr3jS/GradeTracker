@@ -46,6 +46,12 @@ A simple **Grade Tracker web app** built with **HTML, CSS, and vanilla JavaScrip
 
 ---
 
+## Preview
+
+![Grade Tracker Preview](images/preview.png)
+
+---
+
 ## 📜 License
 
 This project is open-source and free to use.
