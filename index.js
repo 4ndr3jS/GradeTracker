@@ -249,5 +249,3 @@ document.addEventListener("DOMContentLoaded", () => {
     const addBtn = document.getElementById("addOption");
     if (addBtn) addBtn.addEventListener("click", addCourse);
 });
-
-addCourse()
