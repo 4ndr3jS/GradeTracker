@@ -20,7 +20,7 @@ function loadGoal() {
         input.value = saved;
     }
 }
--
+
 function addCourse() {
     const name = document.getElementById("courseName").value.trim();
     const grade = parseFloat(document.getElementById("grade").value);
@@ -245,4 +245,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+    
+    const addBtn = document.getElementById("addOption");
+    if (addBtn) addBtn.addEventListener("click", addCourse);
 });
+
+addCourse()
